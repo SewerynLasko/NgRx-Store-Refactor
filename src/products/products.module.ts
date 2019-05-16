@@ -1,3 +1,4 @@
+import { reducers } from './store/reducers/index';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -12,6 +13,7 @@ import * as fromContainers from './containers';
 
 // services
 import * as fromServices from './services';
+import { StoreModule } from '@ngrx/store';
 
 // routes
 export const ROUTES: Routes = [
@@ -35,6 +37,9 @@ export const ROUTES: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forChild(ROUTES),
+    StoreModule.forFeature('products', reducers) // feature name, reducers
+    // forFeature- allows to lazy load modules which uses store too, and binds this to root store object located in appModule
+    // when we load new module (like ProductsModule for instance) forFeature() will attach the Store to ProductsModule
   ],
   providers: [...fromServices.services],
   declarations: [...fromContainers.containers, ...fromComponents.components],
