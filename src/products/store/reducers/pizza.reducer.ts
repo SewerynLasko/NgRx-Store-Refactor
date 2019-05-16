@@ -1,5 +1,5 @@
-import { Pizza } from './../../models/pizza.model';
 import * as actionTypes from '../actions/pizzas.action';
+import { Pizza } from './../../models/pizza.model';
 // this is defining a slice of state that our reducer will manage in entire state tree
 // we are controlling the props that we add and making use of static type checking
 export interface PizzaState {

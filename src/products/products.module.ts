@@ -1,34 +1,31 @@
-import { reducers } from './store/reducers/index';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 // components
 import * as fromComponents from './components';
-
 // containers
 import * as fromContainers from './containers';
-
 // services
 import * as fromServices from './services';
-import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/reducers/index';
 
-// routes
+// routesF
 export const ROUTES: Routes = [
   {
     path: '',
-    component: fromContainers.ProductsComponent,
+    component: fromContainers.ProductsComponent
   },
   {
     path: ':id',
-    component: fromContainers.ProductItemComponent,
+    component: fromContainers.ProductItemComponent
   },
   {
     path: 'new',
-    component: fromContainers.ProductItemComponent,
-  },
+    component: fromContainers.ProductItemComponent
+  }
 ];
 
 @NgModule({
@@ -43,6 +40,6 @@ export const ROUTES: Routes = [
   ],
   providers: [...fromServices.services],
   declarations: [...fromContainers.containers, ...fromComponents.components],
-  exports: [...fromContainers.containers, ...fromComponents.components],
+  exports: [...fromContainers.containers, ...fromComponents.components]
 })
 export class ProductsModule {}
