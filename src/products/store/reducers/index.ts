@@ -1,7 +1,7 @@
-import { ProductState } from './index';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store'; // type check reducers- describes how the reducers look like and how are composed
-import { PizzaState, reducer } from './pizza.reducer'; // this will contain all the reducers for this module
 import * as fromPizzas from '../reducers/pizza.reducer';
+import { ProductState } from './index';
+import { PizzaState, reducer } from './pizza.reducer'; // this will contain all the reducers for this module
 
 export interface ProductState {
   pizzas: PizzaState;

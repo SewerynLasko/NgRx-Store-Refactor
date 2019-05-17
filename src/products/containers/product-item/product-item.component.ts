@@ -1,31 +1,27 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Pizza } from '../../models/pizza.model';
-import { PizzasService } from '../../services/pizzas.service';
-
 import { Topping } from '../../models/topping.model';
+import { PizzasService } from '../../services/pizzas.service';
 import { ToppingsService } from '../../services/toppings.service';
 
 @Component({
   selector: 'product-item',
   styleUrls: ['product-item.component.scss'],
   template: `
-    <div 
-      class="product-item">
+    <div class="product-item">
       <pizza-form
         [pizza]="pizza"
         [toppings]="toppings"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
-        (remove)="onRemove($event)">
-        <pizza-display
-          [pizza]="visualise">
-        </pizza-display>
+        (remove)="onRemove($event)"
+      >
+        <pizza-display [pizza]="visualise"> </pizza-display>
       </pizza-form>
     </div>
-  `,
+  `
 })
 export class ProductItemComponent implements OnInit {
   pizza: Pizza;
@@ -59,9 +55,7 @@ export class ProductItemComponent implements OnInit {
   onSelect(event: number[]) {
     let toppings;
     if (this.toppings && this.toppings.length) {
-      toppings = event.map(id =>
-        this.toppings.find(topping => topping.id === id)
-      );
+      toppings = event.map(id => this.toppings.find(topping => topping.id === id));
     } else {
       toppings = this.pizza.toppings;
     }
