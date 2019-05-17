@@ -37,6 +37,8 @@ export const ROUTES: Routes = [
     StoreModule.forFeature('products', reducers) // feature name, reducers
     // forFeature- allows to lazy load modules which uses store too, and binds this to root store object located in appModule
     // when we load new module (like ProductsModule for instance) forFeature() will attach the Store to ProductsModule
+    // we have a storage module, and this particular feature starts with an object property called 'products'
+    // anything in this feature module is beneath this property called 'products'
   ],
   providers: [...fromServices.services],
   declarations: [...fromContainers.containers, ...fromComponents.components],

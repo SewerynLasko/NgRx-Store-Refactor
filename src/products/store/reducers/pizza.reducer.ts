@@ -10,7 +10,50 @@ export interface PizzaState {
 
 // start off with our application state
 export const initialState: PizzaState = {
-  data: [],
+  data: [
+    {
+      name: "Seaside Surfin'",
+      toppings: [
+        {
+          id: 6,
+          name: 'mushroom'
+        },
+        {
+          id: 7,
+          name: 'olive'
+        },
+        {
+          id: 2,
+          name: 'bacon'
+        },
+        {
+          id: 3,
+          name: 'basil'
+        },
+        {
+          id: 1,
+          name: 'anchovy'
+        },
+        {
+          id: 8,
+          name: 'onion'
+        },
+        {
+          id: 11,
+          name: 'sweetcorn'
+        },
+        {
+          id: 9,
+          name: 'pepper'
+        },
+        {
+          id: 5,
+          name: 'mozzarella'
+        }
+      ],
+      id: 2
+    }
+  ],
   loading: false,
   loaded: false
 };
@@ -45,3 +88,14 @@ export function reducer(state = initialState, action: actionTypes.PizzasAction):
 
   return state;
 }
+
+// Selector- is an exported function which allows NgRx to access PizzaState properties
+// without us needing to repeat ourselfs over and over again
+// You use a selector to compose a state and then we can use it alongside store.select() in the component(s)
+// Start exporting some levels of the state.
+// Small functions that get passes small level of the PizzaState and at that point in time we are down in our data structure
+// This is a good practice to put them underneath the reducers
+export const getPizzasLoading = (state: PizzaState) => state.loading;
+export const getPizzasLoaded = (state: PizzaState) => state.loaded;
+export const getPizzas = (state: PizzaState) => state.data;
+// Now we can compose things one level up and pass it to whats called: "Create Selector Function"
