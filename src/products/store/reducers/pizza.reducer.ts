@@ -10,50 +10,7 @@ export interface PizzaState {
 
 // start off with our application state
 export const initialState: PizzaState = {
-  data: [
-    {
-      name: "Seaside Surfin'",
-      toppings: [
-        {
-          id: 6,
-          name: 'mushroom'
-        },
-        {
-          id: 7,
-          name: 'olive'
-        },
-        {
-          id: 2,
-          name: 'bacon'
-        },
-        {
-          id: 3,
-          name: 'basil'
-        },
-        {
-          id: 1,
-          name: 'anchovy'
-        },
-        {
-          id: 8,
-          name: 'onion'
-        },
-        {
-          id: 11,
-          name: 'sweetcorn'
-        },
-        {
-          id: 9,
-          name: 'pepper'
-        },
-        {
-          id: 5,
-          name: 'mozzarella'
-        }
-      ],
-      id: 2
-    }
-  ],
+  data: [],
   loading: false,
   loaded: false
 };
@@ -70,10 +27,12 @@ export function reducer(state = initialState, action: actionTypes.PizzasAction):
     }
 
     case actionTypes.LOAD_PIZZAS_SUCCESS: {
+      const data = action.payload;
       return {
         ...state,
         loading: false,
-        loaded: true // loaded- allows to control things like loading spinners or route guards
+        loaded: true, // loaded- allows to control things like loading spinners or route guards
+        data
       };
     }
 

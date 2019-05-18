@@ -31,6 +31,8 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.pizzas$ = this.store.select(fromStore.getAllPizzas);
+    this.store.dispatch(new fromStore.LoadPizzas());
+
     // // select me the products. We can do that since we have slices of state
     // // create a selector with a top level property 'products' so that we could jump a level down data structure to access some props
     // // give me the state for this particular module
