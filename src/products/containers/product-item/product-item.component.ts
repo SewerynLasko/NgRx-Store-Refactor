@@ -1,9 +1,9 @@
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Pizza } from '../../models/pizza.model';
 import { Topping } from '../../models/topping.model';
-import { PizzasService } from '../../services/pizzas.service';
-import { ToppingsService } from '../../services/toppings.service';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'product-item',
@@ -11,7 +11,7 @@ import { ToppingsService } from '../../services/toppings.service';
   template: `
     <div class="product-item">
       <pizza-form
-        [pizza]="pizza"
+        [pizza]="pizza$ | async"
         [toppings]="toppings"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
@@ -24,62 +24,25 @@ import { ToppingsService } from '../../services/toppings.service';
   `
 })
 export class ProductItemComponent implements OnInit {
-  pizza: Pizza;
+  pizza$: Observable<Pizza>;
   visualise: Pizza;
   toppings: Topping[];
 
-  constructor(
-    private pizzaService: PizzasService,
-    private toppingsService: ToppingsService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  // Because we use ngrx/router-store we dont need ActivatedRoute && Router && Services here
+  constructor(private store: Store<fromStore.ProductState>) {}
 
   ngOnInit() {
-    this.pizzaService.getPizzas().subscribe(pizzas => {
-      const param = this.route.snapshot.params.id;
-      let pizza;
-      if (param === 'new') {
-        pizza = {};
-      } else {
-        pizza = pizzas.find(pizza => pizza.id == parseInt(param, 10));
-      }
-      this.pizza = pizza;
-      this.toppingsService.getToppings().subscribe(toppings => {
-        this.toppings = toppings;
-        this.onSelect(toppings.map(topping => topping.id));
-      });
-    });
+    // URL driven- very quick and neat solution (no requests happening)
+    // Nove when Im on products/6 and hit refresh then pizza will not load since we dont have route guards to check if pizza is in the store before loading
+    // to be added in the future. Works now since we fetch pizzas to the store when entering first via products and then products/6
+    this.pizza$ = this.store.select(fromStore.getSelectedPizza);
   }
 
-  onSelect(event: number[]) {
-    let toppings;
-    if (this.toppings && this.toppings.length) {
-      toppings = event.map(id => this.toppings.find(topping => topping.id === id));
-    } else {
-      toppings = this.pizza.toppings;
-    }
-    this.visualise = { ...this.pizza, toppings };
-  }
+  onSelect(event: number[]) {}
 
-  onCreate(event: Pizza) {
-    this.pizzaService.createPizza(event).subscribe(pizza => {
-      this.router.navigate([`/products/${pizza.id}`]);
-    });
-  }
+  onCreate(event: Pizza) {}
 
-  onUpdate(event: Pizza) {
-    this.pizzaService.updatePizza(event).subscribe(() => {
-      this.router.navigate([`/products`]);
-    });
-  }
+  onUpdate(event: Pizza) {}
 
-  onRemove(event: Pizza) {
-    const remove = window.confirm('Are you sure?');
-    if (remove) {
-      this.pizzaService.removePizza(event).subscribe(() => {
-        this.router.navigate([`/products`]);
-      });
-    }
-  }
+  onRemove(event: Pizza) {}
 }

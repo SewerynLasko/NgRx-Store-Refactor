@@ -20,11 +20,12 @@ export const ROUTES: Routes = [
     component: fromContainers.ProductsComponent
   },
   {
-    path: ':id',
+    path: 'new',
     component: fromContainers.ProductItemComponent
   },
   {
-    path: 'new',
+    // make sure that this will be hit as last
+    path: ':pizzaId', // id to pizzaId to avoid collisions
     component: fromContainers.ProductItemComponent
   }
 ];
