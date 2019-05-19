@@ -9,6 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 // bootstrap
 import { AppComponent } from './containers/app/app.component';
+import { reducers } from './store';
 
 // this would be done dynamically with webpack for builds
 const environment = {
@@ -32,7 +33,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(ROUTES),
-    StoreModule.forRoot({}, { metaReducers }), // reducers, config
+    StoreModule.forRoot(reducers, { metaReducers }), // reducers, config
     // instatiate Store
     EffectsModule.forRoot([]),
     environment.development ? StoreDevtoolsModule.instrument() : []
