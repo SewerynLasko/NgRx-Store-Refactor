@@ -22,7 +22,7 @@ export const initialState: PizzaState = {
 };
 
 // reducers- will return modified slice of state
-export function reducer(state = initialState, action: actionTypes.PizzasAction): PizzaState {
+export function pizzaReducer(state = initialState, action: actionTypes.PizzasAction): PizzaState {
   switch (action.type) {
     case actionTypes.LOAD_PIZZAS: {
       // new state object
