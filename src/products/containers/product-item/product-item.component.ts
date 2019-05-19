@@ -35,6 +35,7 @@ export class ProductItemComponent implements OnInit {
     // URL driven- very quick and neat solution (no requests happening)
     // Nove when Im on products/6 and hit refresh then pizza will not load since we dont have route guards to check if pizza is in the store before loading
     // to be added in the future. Works now since we fetch pizzas to the store when entering first via products and then products/6
+    this.store.dispatch(new fromStore.LoadToppings());
     this.pizza$ = this.store.select(fromStore.getSelectedPizza);
   }
 
