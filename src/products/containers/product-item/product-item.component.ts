@@ -12,7 +12,7 @@ import * as fromStore from '../../store';
     <div class="product-item">
       <pizza-form
         [pizza]="pizza$ | async"
-        [toppings]="toppings"
+        [toppings]="toppings$ | async"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
@@ -26,7 +26,7 @@ import * as fromStore from '../../store';
 export class ProductItemComponent implements OnInit {
   pizza$: Observable<Pizza>;
   visualise: Pizza;
-  toppings: Topping[];
+  toppings$: Observable<Topping[]>;
 
   // Because we use ngrx/router-store we dont need ActivatedRoute && Router && Services here
   constructor(private store: Store<fromStore.ProductState>) {}
@@ -37,6 +37,7 @@ export class ProductItemComponent implements OnInit {
     // to be added in the future. Works now since we fetch pizzas to the store when entering first via products and then products/6
     this.store.dispatch(new fromStore.LoadToppings());
     this.pizza$ = this.store.select(fromStore.getSelectedPizza);
+    this.toppings$ = this.store.select(fromStore.getAllToppings);
   }
 
   onSelect(event: number[]) {}
