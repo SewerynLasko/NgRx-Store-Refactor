@@ -5,12 +5,14 @@ export interface ToppingsState {
   entities: { [id: number]: Topping };
   loaded: boolean;
   loading: boolean;
+  selectedToppings: number[];
 }
 
 export const initialState: ToppingsState = {
   entities: {},
   loaded: false,
-  loading: false
+  loading: false,
+  selectedToppings: []
 };
 
 // Could be named ToppinggsReducer
@@ -53,6 +55,14 @@ export function toppingsReducer(state: ToppingsState = initialState, action: fro
         loading: false
       };
     }
+
+    case fromToppings.VISUALISE_TOPPINGS: {
+      const selectedToppings = action.payload;
+      return {
+        ...state,
+        selectedToppings
+      };
+    }
   }
 
   return state;
@@ -61,3 +71,5 @@ export function toppingsReducer(state: ToppingsState = initialState, action: fro
 export const getToppingEntities = (state: ToppingsState) => state.entities;
 export const getToppingLoaded = (state: ToppingsState) => state.loaded;
 export const getToppingLoading = (state: ToppingsState) => state.loading;
+// Once we add new items to our reducer it's a good practice to make them available
+export const getSelectedToppings = (state: ToppingsState) => state.selectedToppings;
