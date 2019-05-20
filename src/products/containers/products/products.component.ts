@@ -32,6 +32,8 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.pizzas$ = this.store.select(fromStore.getAllPizzas);
     this.store.dispatch(new fromStore.LoadPizzas());
+    this.store.dispatch(new fromStore.LoadToppings());
+    // We will setup guards to guard product/id when data is not loaded yet
 
     // // select me the products. We can do that since we have slices of state
     // // create a selector with a top level property 'products' so that we could jump a level down data structure to access some props
