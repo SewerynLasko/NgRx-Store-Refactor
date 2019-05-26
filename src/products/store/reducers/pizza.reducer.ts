@@ -72,6 +72,19 @@ export function pizzaReducer(state = initialState, action: actionTypes.PizzasAct
         loading: false
       };
     }
+
+    case actionTypes.CREATE_PIZZA_SUCCESS: {
+      const pizza = action.payload;
+      const entities = {
+        ...state.entities, // Merge all old entities and and brand new one- based on the dynamic state from the server
+        [pizza.id]: pizza // Object key- pizza.id, Object value- pizza
+      };
+
+      return {
+        ...state,
+        ...entities
+      };
+    }
   }
 
   return state;

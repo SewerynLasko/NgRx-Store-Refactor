@@ -37,4 +37,15 @@ export class PizzaEffects {
       );
     })
   );
+
+  @Effect()
+  createPizza$ = this.actions$.ofType(pizzaActions.CREATE_PIZZA).pipe(
+    map((action: pizzaActions.CreatePizza) => action.payload),
+    switchMap(pizza => {
+      return this.pizzasService.createPizza(pizza).pipe(
+        map(pizza => new pizzaActions.CreatePizzaSuccess(pizza)), // we return the actions so that the @Effect() could dispatch them, when dispatch then handled in the reducer
+        catchError(error => of(new pizzaActions.CreatePizzaFail(error)))
+      );
+    })
+  );
 }
