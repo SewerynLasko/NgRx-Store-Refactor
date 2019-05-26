@@ -73,11 +73,12 @@ export function pizzaReducer(state = initialState, action: actionTypes.PizzasAct
       };
     }
 
+    case actionTypes.UPDATE_PIZZA_SUCCESS:
     case actionTypes.CREATE_PIZZA_SUCCESS: {
       const pizza = action.payload;
       const entities = {
         ...state.entities, // Merge all old entities and and brand new one- based on the dynamic state from the server
-        [pizza.id]: pizza // Object key- pizza.id, Object value- pizza
+        [pizza.id]: pizza // Object key- pizza.id, Object value- pizza // This will overwrite existing entity in case of update
       };
 
       return {
