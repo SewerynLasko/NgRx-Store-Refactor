@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/pizzas.action';
-import { Pizza } from './../../models/pizza.model';
+import { Pizza } from './../../models/pizza.model'; // <- Object destructuring example
 // this is defining a slice of state that our reducer will manage in entire state tree
 // we are controlling the props that we add and making use of static type checking
 // data is of array type- in a biger applciation whis will not scale/handle well
@@ -81,6 +81,20 @@ export function pizzaReducer(state = initialState, action: actionTypes.PizzasAct
         [pizza.id]: pizza // Object key- pizza.id, Object value- pizza // This will overwrite existing entity in case of update
       };
 
+      return {
+        ...state,
+        ...entities
+      };
+    }
+
+    case actionTypes.REMOVE_PIZZA_SUCCESS: {
+      const pizza = action.payload;
+      // Object destructuring- destructure the item that we dont want
+      // Give me the item that we want to delete from entities- then we will bind the result of that to our state tree
+      // We remove one item by destructuring it and then keep the rest in a variable and then bind that variable
+      // [pizza.id]: removed- This allows us to give it a name (so console.log(removed) will work) and say that this is going to be a destructured value
+      // we dont care about this name, we just want the stuff that is left- the ...entities (name is also created by me- could be ...result)
+      const { [pizza.id]: removed, ...entities } = state.entities;
       return {
         ...state,
         ...entities

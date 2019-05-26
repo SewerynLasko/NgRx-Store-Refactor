@@ -67,5 +67,13 @@ export class ProductItemComponent implements OnInit {
     this.store.dispatch(new fromStore.UpdatePizza(event));
   }
 
-  onRemove(event: Pizza) {}
+  onRemove(event: Pizza) {
+    const remove = window.confirm('Are you sure?');
+    if (remove) {
+      this.store.dispatch(new fromStore.RemovePizza(event));
+    }
+  }
+  // How to think about this:
+  // @Inputs to the dummy child components are passed from smart component which takes them via STORE SELECTORS as Observables
+  // @Outputs from the dummy child components are passed to smart component which passes them further as STORE DISPATCHES
 }

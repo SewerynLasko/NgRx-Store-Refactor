@@ -14,6 +14,10 @@ export const UPDATE_PIZZA = '[PRODUCTS] Update Pizza';
 export const UPDATE_PIZZA_FAIL = '[PRODUCTS] Update Pizza Fail';
 export const UPDATE_PIZZA_SUCCESS = '[PRODUCTS] Update Pizza Success';
 
+export const REMOVE_PIZZA = '[PRODUCTS] Remove Pizza';
+export const REMOVE_PIZZA_FAIL = '[PRODUCTS] Remove Pizza Fail';
+export const REMOVE_PIZZA_SUCCESS = '[PRODUCTS] Remove Pizza Success';
+
 export class LoadPizzas implements Action {
   readonly type = LOAD_PIZZAS;
 }
@@ -66,6 +70,21 @@ export class UpdatePizzaFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class RemovePizza implements Action {
+  readonly type = REMOVE_PIZZA;
+  constructor(public payload: Pizza) {}
+}
+
+export class RemovePizzaSuccess implements Action {
+  readonly type = REMOVE_PIZZA_SUCCESS;
+  constructor(public payload: Pizza) {}
+}
+
+export class RemovePizzaFail implements Action {
+  readonly type = REMOVE_PIZZA_FAIL;
+  constructor(public payload: any) {}
+}
+
 // export action types for the reducers
 export type PizzasAction =
   | LoadPizzas
@@ -76,4 +95,7 @@ export type PizzasAction =
   | CreatePizzaSuccess
   | UpdatePizza
   | UpdatePizzaFail
-  | UpdatePizzaSuccess;
+  | UpdatePizzaSuccess
+  | RemovePizza
+  | RemovePizzaFail
+  | RemovePizzaSuccess;

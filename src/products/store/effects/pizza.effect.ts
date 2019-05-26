@@ -60,4 +60,17 @@ export class PizzaEffects {
       );
     })
   );
+
+  @Effect()
+  removePizza$ = this.actions$.ofType(pizzaActions.REMOVE_PIZZA).pipe(
+    map((action: pizzaActions.RemovePizza) => action.payload),
+    switchMap(pizza => {
+      // pizza we want to remove, will have an ID
+      return this.pizzasService.removePizza(pizza).pipe(
+        map(() => new pizzaActions.RemovePizzaSuccess(pizza)),
+        // Many APIS will not return an item on delete- thats why in here we just pass a pizza from the switchMap. Map does not have an argument
+        catchError(error => of(new pizzaActions.RemovePizzaFail(error)))
+      );
+    })
+  );
 }
