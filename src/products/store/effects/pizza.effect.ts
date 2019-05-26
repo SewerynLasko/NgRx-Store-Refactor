@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects'; // Action is observable. We can listen to types of actions being dispatched and respond
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
+import * as fromRoot from '../../../app/store';
 import { PizzasService } from './../../services/pizzas.service';
 import * as pizzaActions from './../actions/pizzas.action';
-
 // Listem for action and produce side effects
 // Side effect ex.: communicate via HTTP to localserver and bring data back
 // Then dispatch action that load is successful
@@ -50,6 +50,16 @@ export class PizzaEffects {
   );
 
   @Effect()
+  createPizzaSuccess$ = this.actions$.ofType(pizzaActions.CREATE_PIZZA_SUCCESS).pipe(
+    map((action: pizzaActions.CreatePizzaSuccess) => action.payload),
+    map(pizza => {
+      return new fromRoot.Go({
+        path: ['/products', pizza.id]
+      });
+    })
+  );
+
+  @Effect()
   // updatePizza$ will either get value UpdatePizzaSuccess or UpdatePizzaFail and will pass it to the reducer
   updatePizza$ = this.actions$.ofType(pizzaActions.UPDATE_PIZZA).pipe(
     map((action: pizzaActions.UpdatePizza) => action.payload),
@@ -73,4 +83,15 @@ export class PizzaEffects {
       );
     })
   );
+
+  @Effect()
+  handlePizzaSuccess$ = this.actions$
+    .ofType(pizzaActions.UPDATE_PIZZA_SUCCESS, pizzaActions.REMOVE_PIZZA_SUCCESS)
+    .pipe(
+      map(pizza => {
+        return new fromRoot.Go({
+          path: ['/products']
+        });
+      })
+    );
 }
