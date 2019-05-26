@@ -83,7 +83,7 @@ export function pizzaReducer(state = initialState, action: actionTypes.PizzasAct
 
       return {
         ...state,
-        ...entities
+        entities
       };
     }
 
@@ -97,7 +97,7 @@ export function pizzaReducer(state = initialState, action: actionTypes.PizzasAct
       const { [pizza.id]: removed, ...entities } = state.entities;
       return {
         ...state,
-        ...entities
+        entities
       };
     }
   }
