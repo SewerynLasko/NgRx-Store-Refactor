@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Pizza } from '../../models/pizza.model';
@@ -6,6 +6,19 @@ import * as fromStore from '../../store';
 
 @Component({
   selector: 'products',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  // now we are adding that to Container Components now
+  // Previously when having a service and binding something that was not an observable if you enable this you would not have
+  // any change detection. While our application does not have @Input we still are getting our data input purely via Observable-
+  // and thats what we care about at this particular component
+
+
+  // In entire app we have right now change detection disabled- it makes app much faster since we rely only on store and object references checks
+  // to actually change and in the container component we are getting everithing via dispatch or select- no other local component state that
+  // needs to be detected that there is a change because we are using things like our reducers to actually instruct those changes and then we just
+  // pull those values from the store
+  // OBSERVABLE DRIVEN- CHANGE DETECTION NOT NEEDED!
+  // EASIER TO DEBUG- WE DONT RELY ON LOCAL COMPONENT STATE THAT WE ARE BINDING DOWN FROM A SERVICE
   styleUrls: ['products.component.scss'],
   template: `
     <div class="products">

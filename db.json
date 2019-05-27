@@ -92,6 +92,14 @@
         {
           "id": 12,
           "name": "tomato"
+        },
+        {
+          "id": 9,
+          "name": "pepper"
+        },
+        {
+          "id": 11,
+          "name": "sweetcorn"
         }
       ],
       "id": 2
