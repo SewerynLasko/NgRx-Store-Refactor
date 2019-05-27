@@ -11,16 +11,21 @@ import * as fromComponents from './components';
 import * as fromContainers from './containers';
 // services
 import * as fromServices from './services';
+// guards
+import * as fromGuards from './guards';
+
 import { effects, reducers } from './store';
 
 // routes
 export const ROUTES: Routes = [
   {
     path: '',
+    canActivate: [fromGuards.PizzasGuard],
     component: fromContainers.ProductsComponent
   },
   {
     path: 'new',
+    canActivate: [fromGuards.PizzasGuard],
     component: fromContainers.ProductItemComponent
   },
   {
@@ -43,7 +48,7 @@ export const ROUTES: Routes = [
     // anything in this feature module is beneath this property called 'products'
     EffectsModule.forFeature(effects)
   ],
-  providers: [...fromServices.services],
+  providers: [...fromServices.services, ...fromGuards.guards],
   declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components]
 })
