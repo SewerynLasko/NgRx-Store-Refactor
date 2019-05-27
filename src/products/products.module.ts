@@ -22,16 +22,21 @@ export const ROUTES: Routes = [
     path: '',
     canActivate: [fromGuards.PizzasGuard],
     component: fromContainers.ProductsComponent
+    // This can be done at different routing levels/structure
+    // eg. canActivate child when you have a bunch of child routes that you know will be activated after the canActivate guard above has been called
+    // canActivate- guard at parent
+    // canLoad- handles lazy loading modules
+    // canActivate children- guard at children
   },
   {
     path: 'new',
-    canActivate: [fromGuards.PizzasGuard],
+    canActivate: [fromGuards.PizzasGuard, fromGuards.ToppingsGuard],
     component: fromContainers.ProductItemComponent
   },
   {
     // make sure that this will be hit as last
     path: ':pizzaId', // id to pizzaId to avoid collisions
-    canActivate: [fromGuards.PizzaExistsGuard],
+    canActivate: [fromGuards.PizzaExistsGuard, fromGuards.ToppingsGuard],
     component: fromContainers.ProductItemComponent
   }
 ];
