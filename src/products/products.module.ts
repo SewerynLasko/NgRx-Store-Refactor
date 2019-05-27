@@ -31,6 +31,7 @@ export const ROUTES: Routes = [
   {
     // make sure that this will be hit as last
     path: ':pizzaId', // id to pizzaId to avoid collisions
+    canActivate: [fromGuards.PizzaExistsGuard],
     component: fromContainers.ProductItemComponent
   }
 ];
