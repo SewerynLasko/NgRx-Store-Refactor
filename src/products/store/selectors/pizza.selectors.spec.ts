@@ -65,7 +65,6 @@ describe('Pizzas Selectors', () => {
         loaded: false,
         loading: false
       });
-      // All operations when dispatching an actions are sync- so we can write then linke by line with expects like in here
 
       store.dispatch(new fromActions.LoadPizzasSuccess(pizzas));
 

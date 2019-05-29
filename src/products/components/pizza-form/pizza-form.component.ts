@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Pizza } from '../../models/pizza.model';
@@ -7,7 +7,7 @@ import { Topping } from '../../models/topping.model';
 @Component({
   selector: 'pizza-form',
   styleUrls: ['pizza-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush, // turn off Angular change detection for this particular component
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="pizza-form">
       <form [formGroup]="form">

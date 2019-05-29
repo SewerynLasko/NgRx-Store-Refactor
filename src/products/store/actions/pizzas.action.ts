@@ -1,8 +1,7 @@
-import { Action } from '@ngrx/store'; // we will be implementing this interface against out action creators
+import { Action } from '@ngrx/store';
 import { Pizza } from './../../models/pizza.model';
 
-// load pizzas- 3 things that can happen when we load pizzas
-export const LOAD_PIZZAS = '[PRODUCTS] Load Pizzas'; // good practice namespaces this ([Products]) as per feature module
+export const LOAD_PIZZAS = '[PRODUCTS] Load Pizzas';
 export const LOAD_PIZZAS_FAIL = '[PRODUCTS] Load Pizzas Fail';
 export const LOAD_PIZZAS_SUCCESS = '[PRODUCTS] Load Pizzas Success';
 
@@ -24,16 +23,12 @@ export class LoadPizzas implements Action {
 
 export class LoadPizzasFail implements Action {
   readonly type = LOAD_PIZZAS_FAIL;
-  constructor(public payload: any) {
-    // pass a message as a payload prop back from the server if there is an error
-  }
+  constructor(public payload: any) {}
 }
 
 export class LoadPizzasSuccess implements Action {
   readonly type = LOAD_PIZZAS_SUCCESS;
-  constructor(public payload: Pizza[]) {
-    // pizzas from the backend
-  }
+  constructor(public payload: Pizza[]) {}
 }
 
 export class CreatePizza implements Action {
@@ -43,11 +38,7 @@ export class CreatePizza implements Action {
 
 export class CreatePizzaSuccess implements Action {
   readonly type = CREATE_PIZZA_SUCCESS;
-  constructor(public payload: Pizza) {
-    // CREATE_PIZZA will make a call to backend with pizza
-    // After CREATE_PIZZA action we call CREATE_PIZZA_SUCCESS action
-    // In this action we pass pizza from backend with added ID (by backend)
-  }
+  constructor(public payload: Pizza) {}
 }
 
 export class CreatePizzaFail implements Action {
@@ -85,7 +76,6 @@ export class RemovePizzaFail implements Action {
   constructor(public payload: any) {}
 }
 
-// export action types for the reducers
 export type PizzasAction =
   | LoadPizzas
   | LoadPizzasFail

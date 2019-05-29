@@ -5,7 +5,6 @@ import * as fromPizzas from './pizza.reducer';
 describe('PizzasReducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
-      // If no action: undefined action (store bootstrap)  or action not existing in switch block
       const { initialState } = fromPizzas;
       const action = {} as any;
       const state = fromPizzas.pizzaReducer(undefined, action);

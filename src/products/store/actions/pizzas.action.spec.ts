@@ -6,8 +6,6 @@ describe('Pizzas Actions', () => {
       it('should create an action', () => {
         const action = new fromPizzas.LoadPizzas();
 
-        // {} is casting action to Object Type to prevent bug:
-        // Expected object to be kind of Object, but was LoadedPizzas({ type: '[Products] Load Pizzas' })
         expect({ ...action }).toEqual({
           type: fromPizzas.LOAD_PIZZAS
         });

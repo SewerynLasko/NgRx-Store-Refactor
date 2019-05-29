@@ -13,7 +13,7 @@ export class PizzaExistsGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.checkStore().pipe(
       switchMap(() => {
-        const pizzaId = parseInt(route.params.pizzaId, 10); // convert string to number
+        const pizzaId = parseInt(route.params.pizzaId, 10);
         return this.hasPizza(pizzaId);
       })
     );
@@ -21,13 +21,11 @@ export class PizzaExistsGuard implements CanActivate {
 
   hasPizza(id: number): Observable<boolean> {
     return this.store.select(fromStore.getPizzasEntities).pipe(
-      map((entities: { [key: number]: Pizza }) => !!entities[id]), // !! double exclamation/double bang- will cast value from truthy/falsy to true/false
+      map((entities: { [key: number]: Pizza }) => !!entities[id]),
       take(1)
     );
   }
 
-  // The way the guards are instantiated makes us to duplicate the code in checkStore()- we could make an util function for that
-  // They dont wait for async action to complete, they are called one after the other
   checkStore(): Observable<boolean> {
     return this.store.select(fromStore.getPizzasLoaded).pipe(
       tap(loaded => {

@@ -15,7 +15,6 @@ export const initialState: ToppingsState = {
   selectedToppings: []
 };
 
-// Could be named ToppinggsReducer
 export function toppingsReducer(state: ToppingsState = initialState, action: fromToppings.ToppingsAction): ToppingsState {
   switch (action.type) {
     case fromToppings.LOAD_TOPPINGS: {
@@ -27,7 +26,6 @@ export function toppingsReducer(state: ToppingsState = initialState, action: fro
 
     case fromToppings.LOAD_TOPPINGS_SUCCESS: {
       const toppings = action.payload;
-      // This sould be in the utilities folder so that its not copied in all of the reducers (mapToEntity)- returning such data structure
       const entities = toppings.reduce(
         (entities: { [id: number]: Topping }, topping: Topping) => {
           return {
@@ -71,5 +69,4 @@ export function toppingsReducer(state: ToppingsState = initialState, action: fro
 export const getToppingEntities = (state: ToppingsState) => state.entities;
 export const getToppingLoaded = (state: ToppingsState) => state.loaded;
 export const getToppingLoading = (state: ToppingsState) => state.loading;
-// Once we add new items to our reducer it's a good practice to make them available
 export const getSelectedToppings = (state: ToppingsState) => state.selectedToppings;

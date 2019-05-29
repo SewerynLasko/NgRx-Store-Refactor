@@ -8,22 +8,6 @@ import { of } from 'rxjs/observable/of';
 import { PizzasService } from '../../services/pizzas.service';
 import * as fromActions from '../actions/pizzas.action';
 import * as fromEffects from './pizza.effect';
-// MARBLE DIAGRAM - CONCEPT OF TESTING OBSERVABLE STREAMS!
-
-// When it comes to testing observables and observable stream there is specific syntax called "marble sytax"
-// that can be used to represent things that are happening over time
-// https://github.com/ReactiveX/rxjs/blob/master/docs_app/content/guide/testing/marble-testing.md
-// Lets use this approach to make sure that we return right thing from the effcet
-
-// We can test our asynchronous RxJS code synchronously and deterministically by virtualizing time using the TestScheduler.
-// ASCII marble diagrams provide a visual way for us to represent the behavior of an Observable.
-// We can use them to assert that a particular Observable behaves as expected, as well as to create hot and cold Observables we can use as mocks.
-
-// In the context of TestScheduler,
-// a marble diagram is a string containing special syntax representing events happening over virtual time. Time progresses by frames.
-
-// '-' frame: 1 "frame" of virtual time passing (see above description of frames).
-// [a-z0-9] e.g. 'a' any alphanumeric character: Represents a value being emitted by the producer signaling next()
 
 export class TestActions extends Actions {
   constructor() {
